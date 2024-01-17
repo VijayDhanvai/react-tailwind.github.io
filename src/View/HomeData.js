@@ -1,0 +1,18 @@
+export const HomeData = [
+  "Passing State and Props",
+  "Handling Event from child to parent  ",
+  "Simple Tab",
+  "Simple Accordian",
+  "Conditional JSX",
+  "React Router DOM",
+  "<Navlink> with active class",
+  "useState() Hook",
+  "useEffect() Hook",
+  "Fetch Api call",
+  "Working with .filter method",
+  "Working with .includes method",
+  "Working with .forEach loop",
+  "Product Listing with Filter",
+  "Blog search by title",
+  "Tailwind CSS class ",
+];

@@ -1,6 +1,16 @@
-function CatalogueItem(props) {
-  const { cardItems } = props;
-  //console.log(cardItems);
+import { useState } from "react";
+import AddToCart from "./AddToCart";
+
+function CatalogueItem({ cardItems }) {
+  const [cartQty, setCartQty] = useState(1);
+
+  const increaseQty = (cartQty) => {
+    setCartQty(cartQty + 1);
+  };
+  const decQty = (cartQty) => {
+    cartQty && setCartQty(cartQty - 1);
+  };
+
   return (
     <>
       {cardItems.map((cardItem, index) => (
@@ -13,9 +23,17 @@ function CatalogueItem(props) {
             />
 
             <div className="p-5 font-title">
-              <h5 className="mb-2  text-2xl font-bold tracking-tight text-sky-700 dark:text-white">
-                {cardItem.name}
-              </h5>
+              <div className="flex justify-between">
+                <h5 className="mb-2  text-2xl font-bold tracking-tight text-sky-700 dark:text-white">
+                  {cardItem.name}
+                </h5>
+
+                <AddToCart
+                  cartQty={cartQty}
+                  increaseQty={increaseQty}
+                  decQty={decQty}
+                />
+              </div>
 
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                 {cardItem.info}

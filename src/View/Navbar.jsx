@@ -1,11 +1,12 @@
 import ReactDOM from "react-dom";
 import { NavLink } from "react-router-dom";
 function Navbar() {
+  let totleQty = 0;
   let activeMenuClass = ({ isActive }) =>
     isActive ? "text-blue-600 px-2  underline" : "px-2";
 
   return (
-    <nav className=" flex items-center justify-between ">
+    <nav className=" flex items-center drop-shadow-md  top-0 justify-between fixed bg-white w-full">
       <NavLink
         className="px-3 py-2 bg-sky-500 text-white  text-xl  font-title"
         to="/"
@@ -30,6 +31,10 @@ function Navbar() {
         </NavLink>
         <NavLink className={activeMenuClass} to="/blog">
           Blog
+        </NavLink>
+
+        <NavLink className={activeMenuClass} to="">
+          Cart {totleQty}
         </NavLink>
       </div>
     </nav>

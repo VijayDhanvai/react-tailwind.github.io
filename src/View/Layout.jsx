@@ -8,14 +8,8 @@ function Layout() {
             share across all the pages on your site, like navigation. */}
       <Navbar />
 
-      <hr />
-
- 
-      <div className="lg:container mx-auto px-4">
-
-
+      <div className="lg:container mx-auto mt-16 px-4">
         <Outlet />
-
       </div>
     </div>
   );

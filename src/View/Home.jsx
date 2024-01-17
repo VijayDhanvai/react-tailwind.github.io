@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { HomeData } from "./HomeData";
 function Home() {
   useEffect(() => {
     document.title = "React with Tailwind from the very basic step by step.";
@@ -15,6 +16,17 @@ function Home() {
             Example here are demonstrates some of the core features of React
             from the very basic.
           </p>
+        </div>
+
+        <div className="columns-4 gap-4 mt-8">
+          {HomeData.map((item, index) => (
+            <div
+              key={index}
+              className="mb-4 p-2 text-center bg-slate-100 text-slate-600 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            >
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </>

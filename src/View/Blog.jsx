@@ -38,7 +38,7 @@ function Blog() {
 
   return (
     <>
-      <h2 className="mt-6 text-center text-3xl text-amber-500  ">
+      <h2 className="mt-6 text-center text-3xl text-amber-500">
         Blog listing using
         <strong className="font-semibold"> useEffect</strong> and
         <strong className="font-semibold"> useState</strong>
