@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import CartContext from "../../Context";
 import AddToCart from "./AddToCart";
 
 function CatalogueItem({ cardItems }) {
-  const [cartQty, setCartQty] = useState(1);
+  const [cartLength, cartCountHandle] = useContext(CartContext);
+  // console.log("cartLength", cartLength);
 
-  const increaseQty = (cartQty) => {
-    setCartQty(cartQty + 1);
-  };
-  const decQty = (cartQty) => {
-    cartQty && setCartQty(cartQty - 1);
+  const addToCart = (cardIdClicked) => {
+    cartCountHandle(cardIdClicked);
   };
 
   return (
     <>
+      <h4>Cart : {cartLength}</h4>
       {cardItems.map((cardItem, index) => (
         <div key={cardItem.name} className="break-inside-avoid-column">
           <div className="mb-10 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -28,11 +28,7 @@ function CatalogueItem({ cardItems }) {
                   {cardItem.name}
                 </h5>
 
-                <AddToCart
-                  cartQty={cartQty}
-                  increaseQty={increaseQty}
-                  decQty={decQty}
-                />
+                <AddToCart addToCart={addToCart} cardId={cardItem.id} />
               </div>
 
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">

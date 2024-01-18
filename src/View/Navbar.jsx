@@ -1,7 +1,11 @@
 import ReactDOM from "react-dom";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import cartContext from "../Context";
+
 function Navbar() {
-  let totleQty = 0;
+  const cartCount = useContext(cartContext);
+
   let activeMenuClass = ({ isActive }) =>
     isActive ? "text-blue-600 px-2  underline" : "px-2";
 
@@ -34,7 +38,7 @@ function Navbar() {
         </NavLink>
 
         <NavLink className={activeMenuClass} to="">
-          Cart {totleQty}
+          Cart {cartCount}
         </NavLink>
       </div>
     </nav>
