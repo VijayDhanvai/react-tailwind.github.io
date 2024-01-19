@@ -1,10 +1,10 @@
-import ReactDOM from "react-dom";
+import CartImg from "../assets/img/cart.png";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import cartContext from "../Context";
 
 function Navbar() {
-  const cartCount = useContext(cartContext);
+  const [cartItemsList] = useContext(cartContext);
 
   let activeMenuClass = ({ isActive }) =>
     isActive ? "text-blue-600 px-2  underline" : "px-2";
@@ -12,13 +12,13 @@ function Navbar() {
   return (
     <nav className=" flex items-center drop-shadow-md  top-0 justify-between fixed bg-white w-full">
       <NavLink
-        className="px-3 py-2 bg-sky-500 text-white  text-xl  font-title"
+        className="px-3 py-3 bg-sky-500 text-white  text-xl  font-title"
         to="/"
       >
         React & Tailwind Ultimate Kit
       </NavLink>
 
-      <div className="">
+      <div className="  text-right">
         <NavLink className={activeMenuClass} to="/">
           Home
         </NavLink>
@@ -37,8 +37,16 @@ function Navbar() {
           Blog
         </NavLink>
 
-        <NavLink className={activeMenuClass} to="">
-          Cart {cartCount}
+        <NavLink
+          className={`${activeMenuClass} inline-block  mx-2  text-sky-500 hover:text-white border border-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 text-center capitalize`}
+          to="/cart"
+        >
+          <img
+            src={CartImg}
+            alt=""
+            className="w-6 mr-1 align-middle inline-block"
+          />
+          Cart - {cartItemsList.length}
         </NavLink>
       </div>
     </nav>

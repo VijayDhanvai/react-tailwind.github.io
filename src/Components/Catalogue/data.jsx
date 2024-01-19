@@ -22,8 +22,9 @@ export const data = [
     name: "Vulcanic Ash Cream",
     info: "Designed to provide all-around skincare.",
     searchTern: ["cream", "all"],
-    price: 30.0,
+    price: 300.0,
     image: Image17,
+    quantity: 1,
   },
 
   {
@@ -31,8 +32,9 @@ export const data = [
     name: "Super Oil",
     info: "Special multi-zone oil, use it anywhere!",
     searchTern: ["oil", "multi", "all"],
-    price: 20.0,
+    price: 200.0,
     image: Image1,
+    quantity: 1,
   },
 
   {
@@ -40,8 +42,9 @@ export const data = [
     name: "Scrubissimo",
     info: "Best-selling scrub, makes baby skin.",
     searchTern: ["scrub", "all"],
-    price: 22.0,
+    price: 202.0,
     image: Image2,
+    quantity: 1,
   },
 
   {
@@ -49,8 +52,9 @@ export const data = [
     name: "Nature Oil",
     info: "Easily absorbed, works to nourish skin",
     searchTern: ["oil", "multi", "all"],
-    price: 16.0,
+    price: 106.0,
     image: Image3,
+    quantity: 1,
   },
 
   {
@@ -58,8 +62,9 @@ export const data = [
     name: "Rose Clay Mask",
     info: "Nourishing mask with rose clay.",
     searchTern: ["mask", "all"],
-    price: 20.0,
+    price: 200.0,
     image: Image4,
+    quantity: 1,
   },
 
   {
@@ -67,8 +72,9 @@ export const data = [
     name: "Magic Oil",
     info: "Hydrating, rejuvenating face oil.",
     searchTern: ["oil", "all"],
-    price: 24.0,
+    price: 204.0,
     image: Image5,
+    quantity: 1,
   },
 
   {
@@ -76,8 +82,9 @@ export const data = [
     name: "Lip Scrub",
     info: "Pedrfect scrub for your lips!",
     searchTern: ["lip", "scrub", "all"],
-    price: 26.0,
+    price: 206.0,
     image: Image6,
+    quantity: 1,
   },
 
   {
@@ -85,8 +92,9 @@ export const data = [
     name: "Neck Oil",
     info: "Get your neck wrinkle-free!",
     searchTern: ["oil", "all"],
-    price: 25.0,
+    price: 205.0,
     image: Image7,
+    quantity: 1,
   },
 
   {
@@ -94,8 +102,9 @@ export const data = [
     name: "All-In-One",
     info: "Moisturezer for whole body!",
     searchTern: ["oil", "multi", "all"],
-    price: 19.0,
+    price: 109.0,
     image: Image8,
+    quantity: 1,
   },
 
   {
@@ -103,8 +112,9 @@ export const data = [
     name: "Tonic",
     info: "Unique everyday light tonic.",
     searchTern: ["body", "tonic", "multi", "all"],
-    price: 18.0,
+    price: 108.0,
     image: Image9,
+    quantity: 1,
   },
 
   {
@@ -112,8 +122,9 @@ export const data = [
     name: "Body Oil",
     info: "Nourishing, silky body oil.",
     searchTern: ["oil", "body", "all"],
-    price: 18.0,
+    price: 108.0,
     image: Image10,
+    quantity: 1,
   },
 
   {
@@ -121,8 +132,9 @@ export const data = [
     name: "Thermal Tonic",
     info: "Soothing, hydrating thermal tonic.",
     searchTern: ["tonic", "all"],
-    price: 24.0,
+    price: 204.0,
     image: Image11,
+    quantity: 1,
   },
 
   {
@@ -130,8 +142,9 @@ export const data = [
     name: "Gel Cream",
     info: "Perfect moisture for oily skin.",
     searchTern: ["cream", "all"],
-    price: 15.5,
+    price: 105.5,
     image: Image12,
+    quantity: 1,
   },
 
   {
@@ -139,8 +152,9 @@ export const data = [
     name: "Vegan Mask",
     info: "All natural vegan face mask.",
     searchTern: ["mask", "all"],
-    price: 23.0,
+    price: 203.0,
     image: Image13,
+    quantity: 1,
   },
 
   {
@@ -148,8 +162,9 @@ export const data = [
     name: "Dear Scrub",
     info: "Use it for evey type of skin!",
     searchTern: ["scrub", "body", "all"],
-    price: 28.0,
+    price: 208.0,
     image: Image14,
+    quantity: 1,
   },
 
   {
@@ -157,8 +172,9 @@ export const data = [
     name: "Aloe Vera Cream",
     info: "Perfectly light moisturizing cream.",
     searchTern: ["cream", "multi", "all"],
-    price: 21.0,
+    price: 201.0,
     image: Image15,
+    quantity: 1,
   },
 
   {
@@ -166,7 +182,8 @@ export const data = [
     name: "Lip Balm",
     info: "Premium lip balm for dry skin.",
     searchTern: ["lip", "all"],
-    price: 18.0,
+    price: 108.0,
     image: Image16,
+    quantity: 1,
   },
 ];

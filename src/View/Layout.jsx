@@ -4,21 +4,27 @@ import { useState, createContext } from "react";
 
 import CartContext from "../Context";
 function Layout() {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItemsList, setCartItemsList] = useState([]);
   const [cartLength, setCartLength] = useState(0);
 
   const cartCountHandle = (updateCart) => {
-    const temp = cartItems;
+    let temp = cartItemsList;
 
-    if (!temp.includes(updateCart)) {
-      temp.push(updateCart);
+    if (temp.length == 0) temp.push(updateCart);
+    else {
+      if (!temp.some((item) => item.id === updateCart.id)) {
+        temp.push(updateCart);
+      } else {
+        temp = temp.filter(function (obj) {
+          return obj.id !== updateCart.id;
+        });
+      }
     }
-    setCartItems(temp);
-    console.log(cartItems);
-    setCartLength(cartItems.length);
+    setCartItemsList(temp);
+    setCartLength(temp.length);
   };
 
-  let cart = [cartLength, cartCountHandle];
+  let cart = [cartItemsList, cartCountHandle];
   return (
     <div>
       <CartContext.Provider value={cart}>

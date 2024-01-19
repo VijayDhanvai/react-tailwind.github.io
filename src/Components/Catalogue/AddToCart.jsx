@@ -5,7 +5,7 @@ function AddToCart({ cardId, addToCart }) {
     <div className="flex items-center mb-4">
       <button
         onClick={() => addToCart(cardId)}
-        className="bg-slate-400 text-white px-2 py-1 rounded"
+        className="bg-slate-400 hover:bg-sky-500 text-white px-2 py-1 rounded"
       >
         Add to Cart
       </button>
