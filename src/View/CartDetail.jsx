@@ -1,10 +1,31 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../Context";
+import CartImage from "../assets/img/cart.png";
 
 function CartDetail() {
-  const [cartItemsList, cartCountHandle] = useContext(CartContext);
-  console.log(cartItemsList);
+  const [cartItemsList, cartCountHandle, updateCartQty] =
+    useContext(CartContext);
+
+  let grandTotal = 0;
+
+  cartItemsList.map(
+    (item) => (grandTotal = grandTotal + item.price * item.quantity)
+  );
+
+  const handleQtyChange = (event, cart) => {
+    cartItemsList.map((item) => {
+      item.id == cart.id && (item.quantity = event.target.value);
+      item.id == cart.id && updateCartQty(item);
+    });
+
+    // console.log(cartItemsList);
+    // if (event.target.value == 0) {
+    //   confirm(
+    //     "Quantity is 0 now do you wish to remove this product from cart ? "
+    //   );
+    // }
+  };
 
   useEffect(() => {
     document.title = "Cart Detail Page";
@@ -26,7 +47,7 @@ function CartDetail() {
         </div>
       </div>
       <div className="flex mt-4  justify-between">
-        <div className="bg-slate-100 w-8/12  overflow-auto  p-6 rounded-lg border ">
+        <div className="bg-slate-100 w-8/12 max-h-screen   overflow-auto  p-6 rounded-lg border ">
           {cartItemsList &&
             cartItemsList.map((item) => (
               <div key={item.id} className="border-b border-gray-200 pb-4 mb-4">
@@ -45,8 +66,11 @@ function CartDetail() {
                   <div className="flex items-center justify-end flex-wrap">
                     <input
                       type="number"
+                      min="1"
+                      max="10"
                       className="w-16 border border-gray-300 rounded py-1 px-2  "
                       defaultValue={item.quantity}
+                      onChange={() => handleQtyChange(event, item)}
                     />
                     <button
                       onClick={() => cartCountHandle(item)}
@@ -55,7 +79,8 @@ function CartDetail() {
                       Remove
                     </button>
                     <p className="text-slate-700 mt-3 w-full text-sm font-semibold  text-right">
-                      Total: ₹{(item.price * item.quantity).toFixed(2)}
+                      Total: ₹{(item.price * item.quantity).toFixed(2)} = (
+                      {item.price} * {item.quantity}):
                     </p>
                   </div>
                 </div>
@@ -76,7 +101,30 @@ function CartDetail() {
         </div>
 
         <div className="bg-white  w-4/12 ml-5 p-6 rounded-lg shadow-lg border  ">
-          <p className="text-slate-700 text-xl font-semibold ">Total</p>
+          <p className="text-slate-700 text-xl font-semibold  border-b-2 mb-3 pb-1">
+            <img
+              src={CartImage}
+              alt=""
+              className="inline-block w-6 -mt-1 mr-2 align-middle"
+            />
+            Your Total
+          </p>
+          {cartItemsList &&
+            cartItemsList.map((item) => (
+              <div key={item.id} className="border-b mt-1 last:border-b-0">
+                <h2 className="text-md text-gray-600  flex justify-between p-2">
+                  {item.name} ({item.quantity}):
+                  <span className="text-gray-900 font-semibold">
+                    ₹{(item.price * item.quantity).toFixed(2)}
+                  </span>
+                </h2>
+              </div>
+            ))}
+
+          <div className="text-md text-gray-600 font-semibold border-t-0 border flex justify-between p-2 bg-amber-100">
+            Grand Total :
+            <span className="text-gray-900 ">₹{grandTotal.toFixed(2)}</span>
+          </div>
         </div>
       </div>
     </>
