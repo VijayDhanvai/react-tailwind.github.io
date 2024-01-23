@@ -1,13 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useCallback } from "react";
 
 import CartContext from "../Context";
 import Toast from "../Components/Toast";
+import Breadcrumb from "../Components/Breadcrumb";
 function Layout() {
   const [cartItemsList, setCartItemsList] = useState([]);
-  const [toast, setToast] = useState({ visibility: false, toastTitle: "" });
   const [cartLength, setCartLength] = useState(0);
+  const [toast, setToast] = useState({ visibility: false, toastTitle: "" });
 
   let temp = cartItemsList;
   const cartCountHandle = (updateCart) => {
@@ -46,12 +47,13 @@ function Layout() {
     setCartItemsList(temp1);
   };
 
-  const hideToast = () => {
+  const hideToast = useCallback(() => {
     let temp = { visibility: false, toastTitle: "" };
     setToast(temp);
-  };
+  }, []);
 
   let cart = [cartItemsList, cartCountHandle, updateCartQty];
+
   return (
     <div>
       <CartContext.Provider value={cart}>
@@ -59,12 +61,9 @@ function Layout() {
         {/* A "layout route" is a good place to put markup you want to
             share across all the pages on your site, like navigation. */}
 
-        <div className="lg:container mx-auto mt-16 px-4">
-          <Toast
-            visibility={toast.visibility}
-            toastTitle={toast.toastTitle}
-            hideToast={hideToast}
-          />
+        <div className="lg:container mx-auto mt-20 px-4">
+          <Breadcrumb />
+          <Toast {...toast} hideToast={hideToast} />
           <Outlet />
         </div>
       </CartContext.Provider>

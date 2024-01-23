@@ -4,6 +4,8 @@ import CartContext from "../Context";
 import CartImage from "../assets/img/cart.png";
 
 function CartDetail() {
+  // console.log("cart Detail");
+
   const [cartItemsList, cartCountHandle, updateCartQty] =
     useContext(CartContext);
 
@@ -18,13 +20,6 @@ function CartDetail() {
       item.id == cart.id && (item.quantity = event.target.value);
       item.id == cart.id && updateCartQty(item);
     });
-
-    // console.log(cartItemsList);
-    // if (event.target.value == 0) {
-    //   confirm(
-    //     "Quantity is 0 now do you wish to remove this product from cart ? "
-    //   );
-    // }
   };
 
   useEffect(() => {
@@ -32,7 +27,7 @@ function CartDetail() {
   }, []);
   return (
     <>
-      <div className="flex  mt-20 justify-between align-middle">
+      <div className="flex  mt-10 justify-between align-middle">
         <h1 className="text-slate-700 text-xl font-semibold    ">
           Products added to Cart - {cartItemsList.length}
         </h1>
@@ -48,7 +43,18 @@ function CartDetail() {
       </div>
       <div className="flex mt-4  justify-between">
         <div className="bg-slate-100 w-8/12 max-h-screen   overflow-auto  p-6 rounded-lg border ">
-          {cartItemsList &&
+          {!cartItemsList.length ? (
+            <div>
+              No Item added to cart, please add Products from
+              <Link
+                to="/catalogue"
+                className="inline-block  mx-2  text-sky-500 hover:text-white border border-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-3 py-1 text-center capitalize"
+              >
+                Catalogue
+              </Link>
+              Page.
+            </div>
+          ) : (
             cartItemsList.map((item) => (
               <div key={item.id} className="border-b border-gray-200 pb-4 mb-4">
                 <div className="flex items-center justify-between mb-2">
@@ -80,23 +86,12 @@ function CartDetail() {
                     </button>
                     <p className="text-slate-700 mt-3 w-full text-sm font-semibold  text-right">
                       Total: ₹{(item.price * item.quantity).toFixed(2)} = (
-                      {item.price} * {item.quantity}):
+                      {item.price} * {item.quantity})
                     </p>
                   </div>
                 </div>
               </div>
-            ))}
-          {!cartItemsList.length && (
-            <div>
-              No Item added to cart, please add Products from
-              <Link
-                to="/catalogue"
-                className="inline-block  mx-2  text-sky-500 hover:text-white border border-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-3 py-1 text-center capitalize"
-              >
-                Catalogue
-              </Link>
-              Page.
-            </div>
+            ))
           )}
         </div>
 

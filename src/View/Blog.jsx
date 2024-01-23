@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import Pagination from "../Components/Pagination";
 function Blog() {
+  let PageSize = 12;
   const [blogList, setBlogList] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const [filteredBlogList, setFilteredBlogList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   function fetchBlogData() {
     fetch("https://jsonplaceholder.org/posts/")
@@ -28,6 +31,7 @@ function Blog() {
     } else {
       setFilteredBlogList(blogList);
     }
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -35,6 +39,21 @@ function Blog() {
 
     fetchBlogData();
   }, []);
+
+  const currentProductList = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    console.log(
+      firstPageIndex,
+      lastPageIndex,
+      filteredBlogList.slice(firstPageIndex, lastPageIndex)
+    );
+    return filteredBlogList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, filteredBlogList]);
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -67,14 +86,21 @@ function Blog() {
         </div>
       )}
 
-      <div className="grid mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredBlogList &&
-          filteredBlogList.map((post) => (
+      <div className="grid mt-4 mb-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {currentProductList &&
+          currentProductList.map((post) => (
             <div key={post.id} className="bg-white p-6 rounded-lg shadow-md">
               <img src={post.image} alt="" className="border rounded-lg mb-4" />
-              <h2 className="text-md font-semibold mb-2 text-sky-500">
-                {post.title}
-              </h2>
+              <Link
+                to={`/blog/${post.title
+                  .replaceAll(/[^a-zA-Z ]/g, "")
+                  .replaceAll(" ", "-")
+                  .toLowerCase()}?id=${post.id}`}
+              >
+                <h2 className="text-md font-semibold mb-2 text-sky-500">
+                  {post.title}
+                </h2>
+              </Link>
 
               <div className="flex justify-between mb-3 text-slate-600">
                 <div className="capitalize font-semibold text-slate-500  bg-slate-100 text-sm  rounded-lg  px-2 py-0.5 text-center    ">
@@ -85,8 +111,12 @@ function Blog() {
               <p className="text-gray-500 text-sm">
                 {post.content.substr(0, 150) + "..."}
               </p>
+
               <Link
-                to=""
+                to={`/blog/${post.title
+                  .replaceAll(/[^a-zA-Z ]/g, "")
+                  .replaceAll(" ", "-")
+                  .toLowerCase()}?id=${post.id}`}
                 className="inline-block mt-4 text-sky-500 hover:text-white border border-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 text-center capitalize"
               >
                 Read more
@@ -94,7 +124,14 @@ function Blog() {
             </div>
           ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalCount={filteredBlogList?.length}
+        pageSize={PageSize}
+        onPageChange={onPageChange}
+      />
     </>
   );
 }
-export default Blog;
+
+export default React.memo(Blog);

@@ -6,6 +6,7 @@ import Home from "./View/Home";
 import CataloguePage from "./View/CataloguePage";
 import AccordionPage from "./View/AccordionPage";
 import Blog from "./View/Blog";
+import BlogDetail from "./View/BlogDetail";
 import CartDetail from "./View/CartDetail";
 import { Routes, Route } from "react-router-dom";
 import "./style.css";
@@ -19,6 +20,7 @@ export const App: FC<{ name: string }> = ({ name }) => {
         <Route path="accordiaon" element={<AccordionPage />} />
         <Route path="catalogue" element={<CataloguePage />} />
         <Route path="blog" element={<Blog />} />
+        <Route path="blog/:title" element={<BlogDetail />} />
         <Route path="cart" element={<CartDetail />} />
 
         {/* Using path="*"" means "match anything", so this route
