@@ -1,5 +1,6 @@
 import React from "react";
 function Toast({ visibility, toastTitle, hideToast }) {
+  console.log("Toast", visibility, toastTitle);
   return (
     <>
       {visibility && (

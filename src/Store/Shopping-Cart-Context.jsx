@@ -1,40 +1,57 @@
-import { useState, createContext, useCallback } from "react";
+import { useState, createContext, useCallback, useReducer } from "react";
 import Toast from "../Components/Toast";
 
 const CartContext = createContext({});
 export default CartContext;
 
+const ToastInit = { visibility: false, toastTitle: "" };
+const toastReducer = (state, action) => {
+  switch (action) {
+    case "Added":
+      return {
+        visibility: true,
+        toastTitle: "Item added to cart successfully.",
+      };
+    case "Removed":
+      return {
+        visibility: true,
+        toastTitle: "Item removed from cart successfully.",
+      };
+    case "Hide":
+      return {
+        visibility: false,
+        toastTitle: "",
+      };
+  }
+};
+
 export function CartContextProvider({ children }) {
   const [cartItemsList, setCartItemsList] = useState([]);
+  //   const [cartItemsList, setCartItemsList] = useReducer(CartItemsListReducer,[]);
+
   const [cartLength, setCartLength] = useState(0);
-  const [toast, setToast] = useState({ visibility: false, toastTitle: "" });
+  const [toast, toastDispatch] = useReducer(toastReducer, ToastInit);
 
   let temp = cartItemsList;
   const cartCountHandle = (updateCart) => {
     updateCart.quantity = 1;
     if (temp.length == 0) {
       temp.push(updateCart);
-      toast.visibility = true;
-      toast.toastTitle = "Item added to cart successfully.";
+      toastDispatch("Added");
+    } else if (!temp.some((item) => item.id === updateCart.id)) {
+      temp.push(updateCart);
+      toastDispatch("Added");
     } else {
-      if (!temp.some((item) => item.id === updateCart.id)) {
-        temp.push(updateCart);
-        toast.visibility = true;
-        toast.toastTitle = "Item added to cart successfully.";
-      } else {
-        temp = temp.filter(function (obj) {
-          toast.visibility = true;
-          toast.toastTitle = "Item removed from cart successfully.";
-          return obj.id !== updateCart.id;
-        });
-      }
+      temp = temp.filter(function (obj) {
+        return obj.id !== updateCart.id;
+      });
+      toastDispatch("Removed");
     }
-    setToast(toast);
+
     setCartItemsList(temp);
     setCartLength(temp.length);
     setTimeout(() => {
-      let temp = { visibility: false, toastTitle: "" };
-      setToast(temp);
+      toastDispatch("Hide");
     }, 5000);
   };
 
@@ -47,8 +64,7 @@ export function CartContextProvider({ children }) {
   };
 
   const hideToast = useCallback(() => {
-    let temp = { visibility: false, toastTitle: "" };
-    setToast(temp);
+    toastDispatch("Hide");
   }, []);
 
   const cart = [cartItemsList, cartCountHandle, updateCartQty];
