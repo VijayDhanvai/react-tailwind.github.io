@@ -1,11 +1,10 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CartContext from "../Context";
+
 import CartImage from "../assets/img/cart.png";
+import CartContext from "../Store/Shopping-Cart-Context";
 
 function CartDetail() {
-  // console.log("cart Detail");
-
   const [cartItemsList, cartCountHandle, updateCartQty] =
     useContext(CartContext);
 

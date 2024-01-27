@@ -1,7 +1,7 @@
 import CartImg from "../assets/img/cart.png";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import cartContext from "../Context";
+import cartContext from "../Store/Shopping-Cart-Context";
 import React from "react";
 
 function Navbar() {

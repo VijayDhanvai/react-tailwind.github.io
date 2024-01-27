@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import CartContext from "../../Context";
+import CartContext from "../../Store/Shopping-Cart-Context";
 import AddToCart from "./AddToCart";
 
 function CatalogueItem({ cardItems }) {

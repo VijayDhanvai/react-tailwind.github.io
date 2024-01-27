@@ -8,6 +8,8 @@ export const HomeData = [
   "<Navlink> with active class",
   "useState() Hook",
   "useEffect() Hook",
+  "useContext() Hook ",
+  "useMemo() Hook ",
   "Fetch Api call",
   "Working with .filter method",
   "Working with .includes method",
@@ -15,4 +17,8 @@ export const HomeData = [
   "Product Listing with Filter",
   "Blog search by title",
   "Tailwind CSS class ",
+  "Pagination Component",
+  "Breadcrumb Component",
+  "Dynamic Page Title for each Page",
+  "React Memo  ",
 ];
