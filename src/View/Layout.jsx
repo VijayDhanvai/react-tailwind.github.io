@@ -5,19 +5,17 @@ import { CartContextProvider } from "../Store/Shopping-Cart-Context";
 import Breadcrumb from "../Components/Breadcrumb";
 function Layout() {
   return (
-    <div>
-      <CartContextProvider>
-        <Navbar />
-        {/* A "layout route" is a good place to put markup you want to
+    <CartContextProvider>
+      <Navbar />
+      {/* A "layout route" is a good place to put markup you want to
             share across all the pages on your site, like navigation. */}
 
-        <div className="lg:container mx-auto mt-20 px-4">
-          <Breadcrumb />
+      <div className="lg:container mx-auto mt-20 px-4">
+        <Breadcrumb />
 
-          <Outlet />
-        </div>
-      </CartContextProvider>
-    </div>
+        <Outlet />
+      </div>
+    </CartContextProvider>
   );
 }
 

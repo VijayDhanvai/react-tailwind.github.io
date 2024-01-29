@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function BlogDetail() {
   const [blogData, setBlogData] = useState("");
@@ -8,8 +8,8 @@ export default function BlogDetail() {
   const id = queryParameters.get("id");
 
   // Fetching Blog Data.
-  function fetchBlogData() {
-    fetch("https://jsonplaceholder.org/posts/" + id)
+  async function fetchBlogData() {
+    await fetch("https://jsonplaceholder.org/posts/" + id)
       .then((response) => {
         return response.json();
       })
@@ -46,6 +46,13 @@ export default function BlogDetail() {
               className="rounded-xl object-cover w-full h-60"
             />
             <p className="mt-5 text-slate-700 ">{blogData.content}</p>
+            <Link
+              to=".."
+              className="w-full inline-block mt-4 text-sky-500 hover:text-white border border-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 text-center capitalize"
+              relative="path"
+            >
+              Go Back to Blog Listing Page
+            </Link>
           </div>
         </div>
       )}

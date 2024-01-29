@@ -8,26 +8,33 @@ import AccordionPage from "./View/AccordionPage";
 import Blog from "./View/Blog";
 import BlogDetail from "./View/BlogDetail";
 import CartDetail from "./View/CartDetail";
-import { Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./style.css";
 
-export const App: FC<{ name: string }> = ({ name }) => {
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index path="/" element={<Home />} />
-        <Route path="tab" element={<TabPage />} />
-        <Route path="accordiaon" element={<AccordionPage />} />
-        <Route path="catalogue" element={<CataloguePage />} />
-        <Route path="blog" element={<Blog />} />
-        <Route path="blog/:title" element={<BlogDetail />} />
-        <Route path="cart" element={<CartDetail />} />
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <NoMatch />,
+    children: [
+      { index: true, element: <Home /> },
+      // { path: "/", element: <Home /> },
+      { path: "tab", element: <TabPage /> },
+      { path: "accordiaon", element: <AccordionPage /> },
+      { path: "catalogue", element: <CataloguePage /> },
+      { path: "blog", element: <Blog /> },
+      {
+        path: "blog/:title",
+        element: <BlogDetail />,
+        // loader: LoaderBlogData,
+      },
+      { path: "cart", element: <CartDetail /> },
+    ],
+  },
 
-        {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-        <Route path="*" element={<NoMatch />} />
-      </Route>
-    </Routes>
-  );
+  { path: "*", element: <NoMatch /> },
+]);
+
+export const App: FC<{ name: string }> = ({ name }) => {
+  return <RouterProvider router={router} />;
 };

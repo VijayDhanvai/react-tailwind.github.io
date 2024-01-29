@@ -50,12 +50,14 @@ function Catalogue() {
       <div className="columns-3 gap-8 mt-8">
         <CatalogueItem cardItems={currentProductList} />
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalCount={FilteredResults?.length}
-        pageSize={PageSize}
-        onPageChange={onPageChange}
-      />
+      {FilteredResults && (
+        <Pagination
+          currentPage={currentPage}
+          totalCount={FilteredResults?.length}
+          pageSize={PageSize}
+          onPageChange={onPageChange}
+        />
+      )}
     </>
   );
 }

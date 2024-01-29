@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../Components/Pagination";
 function Blog() {
-  let PageSize = 12;
+  const [PageSize, setPageSize] = useState(10);
   const [blogList, setBlogList] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const [filteredBlogList, setFilteredBlogList] = useState([]);
@@ -43,16 +43,15 @@ function Blog() {
   const currentProductList = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    console.log(
-      firstPageIndex,
-      lastPageIndex,
-      filteredBlogList.slice(firstPageIndex, lastPageIndex)
-    );
     return filteredBlogList.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, filteredBlogList]);
+  }, [currentPage, filteredBlogList, PageSize]);
 
   const onPageChange = (page) => {
     setCurrentPage(page);
+  };
+  const handleBlogPerPage = (event) => {
+    setPageSize(parseInt(event.target.value));
+    setCurrentPage(1);
   };
 
   return (
@@ -73,6 +72,22 @@ function Blog() {
             className="py-2 mr-2 w-80 px-3 border border-gray-200 border-solid focus:ring-4 focus:outline-none focus:ring-sky-300 rounded-md  text-slate-700"
             placeholder="Search Blog/Insight by title"
           />
+          <select
+            onChange={handleBlogPerPage}
+            className="capitalize font-semibold text-slate-500  bg-slate-100 text-sm  rounded-lg   mr-2 border pl-2    "
+          >
+            <option value="" disabled>
+              Show per Page
+            </option>
+
+            <option value="10" defaultValue>
+              10
+            </option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+
           <div className="capitalize font-semibold text-slate-500  bg-slate-100 text-sm  rounded-lg  px-5 py-2.5 text-center  ">
             Blog Count {filteredBlogList.length}
           </div>
@@ -87,12 +102,14 @@ function Blog() {
       )}
 
       <div className="grid mt-4 mb-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {currentProductList &&
+        {currentProductList?.length == 0 ? (
+          <h4>No Blog or Insight Found. </h4>
+        ) : (
           currentProductList.map((post) => (
             <div key={post.id} className="bg-white p-6 rounded-lg shadow-md">
               <img src={post.image} alt="" className="border rounded-lg mb-4" />
               <Link
-                to={`/blog/${post.title
+                to={`${post.title
                   .replaceAll(/[^a-zA-Z ]/g, "")
                   .replaceAll(" ", "-")
                   .toLowerCase()}?id=${post.id}`}
@@ -113,7 +130,7 @@ function Blog() {
               </p>
 
               <Link
-                to={`/blog/${post.title
+                to={`${post.title
                   .replaceAll(/[^a-zA-Z ]/g, "")
                   .replaceAll(" ", "-")
                   .toLowerCase()}?id=${post.id}`}
@@ -122,14 +139,17 @@ function Blog() {
                 Read more
               </Link>
             </div>
-          ))}
+          ))
+        )}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalCount={filteredBlogList?.length}
-        pageSize={PageSize}
-        onPageChange={onPageChange}
-      />
+      {filteredBlogList?.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalCount={filteredBlogList?.length}
+          pageSize={PageSize}
+          onPageChange={onPageChange}
+        />
+      )}
     </>
   );
 }
