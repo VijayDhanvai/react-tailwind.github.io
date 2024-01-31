@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import cartContext from "../Store/Shopping-Cart-Context";
 import React from "react";
-import GoogleLoginButton from "../Components/GoogleLogin/GoogleLogin";
 
 function Navbar() {
   // console.log("Navbar");
@@ -60,8 +59,6 @@ function Navbar() {
           />
           Cart - {cartItemsList.length}
         </NavLink>
-
-        {/* <GoogleLoginButton /> */}
       </div>
     </nav>
   );
