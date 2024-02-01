@@ -3,13 +3,14 @@ import { useMemo, useState } from "react";
 import CatalogueItem from "./CatalogueItem";
 import FilterButtons from "./FilterButtons";
 import Pagination from "../Pagination";
+import usePagination from "../../Hooks/usePagination";
 
 function Catalogue() {
   const [FilteredResults, setFilteredResults] = useState(data);
   const [clickCategory, setClickCategory] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
 
-  let PageSize = 3;
+  const [currentPage, pageSizeSelected, onPageChange] = usePagination(3); // 3 Is page size value here
+
   function handleClick(clickCategory) {
     const filterTemp = [];
     data.forEach((item) => {
@@ -19,21 +20,17 @@ function Catalogue() {
         }
       });
     });
-    setCurrentPage(1);
     setFilteredResults(filterTemp);
     setClickCategory(clickCategory);
+    onPageChange(1);
   }
   const currentProductList = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
+    const firstPageIndex = (currentPage - 1) * pageSizeSelected;
+    const lastPageIndex = firstPageIndex + pageSizeSelected;
 
     return FilteredResults.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, FilteredResults]);
 
-  const onPageChange = (page) => {
-    console.log(page);
-    setCurrentPage(page);
-  };
   return (
     <>
       <div className="text-center mt-3">
@@ -52,9 +49,9 @@ function Catalogue() {
       </div>
       {FilteredResults && (
         <Pagination
-          currentPage={currentPage}
           totalCount={FilteredResults?.length}
-          pageSize={PageSize}
+          currentPage={currentPage}
+          pageSize={pageSizeSelected}
           onPageChange={onPageChange}
         />
       )}

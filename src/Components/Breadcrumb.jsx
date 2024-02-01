@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import React, { useEffect, useRef } from "react";
 
 const Breadcrumb = () => {
   const location = useLocation();

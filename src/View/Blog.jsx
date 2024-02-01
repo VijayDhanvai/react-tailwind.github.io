@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../Components/Pagination";
+import usePagination from "../Hooks/usePagination";
 function Blog() {
-  const [PageSize, setPageSize] = useState(10);
+  const [currentPage, pageSizeSelected, onPageChange, onPageSizeChange] =
+    usePagination(10); // 10 Is page size value here
+
   const [blogList, setBlogList] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const [filteredBlogList, setFilteredBlogList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
   function fetchBlogData() {
     fetch("https://jsonplaceholder.org/posts/")
@@ -31,7 +33,7 @@ function Blog() {
     } else {
       setFilteredBlogList(blogList);
     }
-    setCurrentPage(1);
+    onPageChange(1);
   };
 
   useEffect(() => {
@@ -41,18 +43,10 @@ function Blog() {
   }, []);
 
   const currentProductList = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
+    const firstPageIndex = (currentPage - 1) * pageSizeSelected;
+    const lastPageIndex = firstPageIndex + pageSizeSelected;
     return filteredBlogList.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, filteredBlogList, PageSize]);
-
-  const onPageChange = (page) => {
-    setCurrentPage(page);
-  };
-  const handleBlogPerPage = (event) => {
-    setPageSize(parseInt(event.target.value));
-    setCurrentPage(1);
-  };
+  }, [currentPage, filteredBlogList, pageSizeSelected]);
 
   return (
     <>
@@ -73,7 +67,7 @@ function Blog() {
             placeholder="Search Blog/Insight by title"
           />
           <select
-            onChange={handleBlogPerPage}
+            onChange={onPageSizeChange}
             className="capitalize font-semibold text-slate-500  bg-slate-100 text-sm  rounded-lg   mr-2 border pl-2    "
           >
             <option value="" disabled>
@@ -146,7 +140,7 @@ function Blog() {
         <Pagination
           currentPage={currentPage}
           totalCount={filteredBlogList?.length}
-          pageSize={PageSize}
+          pageSize={pageSizeSelected}
           onPageChange={onPageChange}
         />
       )}
