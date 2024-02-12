@@ -25,9 +25,12 @@ const toastReducer = (state, action) => {
   }
 };
 
+const cartInitialValue = () => {
+  return JSON.parse(localStorage.getItem("cartItems")) || [];
+};
+
 export function CartContextProvider({ children }) {
-  const [cartItemsList, setCartItemsList] = useState([]);
-  //   const [cartItemsList, setCartItemsList] = useReducer(CartItemsListReducer,[]);
+  const [cartItemsList, setCartItemsList] = useState(cartInitialValue);
 
   const [cartLength, setCartLength] = useState(0);
   const [toast, toastDispatch] = useReducer(toastReducer, ToastInit);
@@ -48,7 +51,7 @@ export function CartContextProvider({ children }) {
       toastDispatch("Removed");
     }
 
-    setCartItemsList(temp);
+    saveCartData(temp);
     setCartLength(temp.length);
     setTimeout(() => {
       toastDispatch("Hide");
@@ -60,7 +63,12 @@ export function CartContextProvider({ children }) {
       item.id == updateQty.id && (item.quantity = updateQty.quantity);
       return item;
     });
-    setCartItemsList(temp1);
+    saveCartData(temp1);
+  };
+
+  const saveCartData = (cartData) => {
+    setCartItemsList(cartData);
+    localStorage.setItem("cartItems", JSON.stringify(cartData));
   };
 
   const hideToast = useCallback(() => {

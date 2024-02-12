@@ -1,6 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CartContext from "../../Store/Shopping-Cart-Context";
 import AddToCart from "./AddToCart";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 function CatalogueItem({ cardItems }) {
   const [cartItemsList, cartCountHandle] = useContext(CartContext);
@@ -18,6 +20,16 @@ function CatalogueItem({ cardItems }) {
       return "Add to Cart";
     }
   };
+
+  useEffect(() => {
+    // Animate card on mount
+    gsap.fromTo(
+      ".break-inside-avoid-column",
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 }
+    );
+  }, [cardItems]);
+
   return (
     <>
       {cardItems.map((cardItem, index) => (

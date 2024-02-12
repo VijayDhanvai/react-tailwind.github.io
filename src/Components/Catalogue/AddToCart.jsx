@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function AddToCart({ cardId, addToCart, btnLabel }) {
   return (
     <div className="flex items-center mb-4">

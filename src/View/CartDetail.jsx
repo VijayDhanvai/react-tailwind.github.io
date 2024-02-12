@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import CartImage from "../assets/img/cart.png";
 import CartContext from "../Store/Shopping-Cart-Context";
+import gsap from "gsap";
 
 function CartDetail() {
   const [cartItemsList, cartCountHandle, updateCartQty] =
@@ -23,6 +23,11 @@ function CartDetail() {
 
   useEffect(() => {
     document.title = "Cart Detail Page";
+    gsap.fromTo(
+      ".cart-list",
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 }
+    );
   }, []);
   return (
     <>
@@ -55,7 +60,10 @@ function CartDetail() {
             </div>
           ) : (
             cartItemsList.map((item) => (
-              <div key={item.id} className="border-b border-gray-200 pb-4 mb-4">
+              <div
+                key={item.id}
+                className="cart-list border-b border-gray-200 pb-4 mb-4"
+              >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center">
                     <img

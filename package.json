@@ -1,9 +1,9 @@
 {
-  "name": "React-With-RailWind",
+  "name": "React-With-TailWind",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://react-tailwind.w3reign.com",
   "dependencies": {
+    "@gsap/react": "^2.1.0",
     "@popperjs/core": "^2.11.8",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",

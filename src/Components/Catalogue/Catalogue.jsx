@@ -1,11 +1,15 @@
 import { data } from "./data";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import CatalogueItem from "./CatalogueItem";
 import FilterButtons from "./FilterButtons";
 import Pagination from "../Pagination";
 import usePagination from "../../Hooks/usePagination";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function Catalogue() {
+  const refBtnContainer = useRef();
+
   const [FilteredResults, setFilteredResults] = useState(data);
   const [clickCategory, setClickCategory] = useState("all");
 
@@ -23,6 +27,7 @@ function Catalogue() {
     setFilteredResults(filterTemp);
     setClickCategory(clickCategory);
     onPageChange(1);
+    // Animate button on click
   }
   const currentProductList = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSizeSelected;
@@ -37,11 +42,13 @@ function Catalogue() {
         <h2 className="text-xl mb-5 font-semibold text-amber-800 capitalize">
           Filter By {clickCategory}
         </h2>
-        <FilterButtons
-          FilterButtons={data}
-          handleClick={handleClick}
-          className={clickCategory}
-        />
+        <div ref={refBtnContainer}>
+          <FilterButtons
+            FilterButtons={data}
+            handleClick={handleClick}
+            className={clickCategory}
+          />
+        </div>
       </div>
 
       <div className="columns-3 gap-8 mt-8">
