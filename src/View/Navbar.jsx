@@ -2,11 +2,15 @@ import CartImg from "../assets/img/cart.png";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import cartContext from "../Store/Shopping-Cart-Context";
+import LoginButton from "../Components/Login";
+import LogoutButton from "../Components/Logout";
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
   // console.log("Navbar");
   const [cartItemsList] = useContext(cartContext);
+  const { isAuthenticated } = useAuth0();
 
   let activeMenuClass = ({ isActive }) =>
     isActive ? "text-blue-600 px-2  underline" : "px-2";
@@ -20,7 +24,7 @@ function Navbar() {
         React & Tailwind Ultimate Kit
       </NavLink>
 
-      <div className="  text-right">
+      <div className="flex items-center  text-right">
         <NavLink className={activeMenuClass} to="/">
           <svg
             className="w-3 h-3 me-2.5 inline-block align-middle -mt-1"
@@ -59,6 +63,8 @@ function Navbar() {
           />
           Cart - {cartItemsList.length}
         </NavLink>
+        {/* {console.log(user)} */}
+        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
       </div>
     </nav>
   );

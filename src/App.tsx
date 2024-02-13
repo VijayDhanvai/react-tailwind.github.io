@@ -8,6 +8,8 @@ import AccordionPage from "./View/AccordionPage";
 import Blog from "./View/Blog";
 import BlogDetail from "./View/BlogDetail";
 import CartDetail from "./View/CartDetail";
+import UserProfile from "./View/UserProfile";
+import { ProtectedRoute } from "./Components/ProtectedRoute";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./style.css";
 
@@ -16,9 +18,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     errorElement: <NoMatch />,
+
     children: [
       { index: true, element: <Home /> },
-      // { path: "/", element: <Home /> },
+
       { path: "tab", element: <TabPage /> },
       { path: "accordiaon", element: <AccordionPage /> },
       { path: "catalogue", element: <CataloguePage /> },
@@ -26,9 +29,14 @@ const router = createBrowserRouter([
       {
         path: "blog/:title",
         element: <BlogDetail />,
-        // loader: LoaderBlogData,
       },
-      { path: "cart", element: <CartDetail /> },
+
+      { path: "cart", element: <ProtectedRoute component={CartDetail} /> },
+
+      {
+        path: "profile",
+        element: <ProtectedRoute component={UserProfile} />,
+      },
     ],
   },
 
